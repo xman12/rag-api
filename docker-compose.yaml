@@ -1,0 +1,19 @@
+version: '3.8'
+name: rag-api
+# This docker-compose file sets up a PostgreSQL database with pgvector support.
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: rag-api-pgvector-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pgdata:
